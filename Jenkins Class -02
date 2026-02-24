@@ -83,3 +83,10 @@ open created job-------> do configure------> select triggers----------> GitHub h
 
 now when the developer made changes into a code automatically changes will may apply to application as well
 
+select created Job ------------> do configure------> select trigger-----> select & enable GitHub hook trigger for GITHUB
+
+Automatically job will get build and done changes in application
+
+Default port for Jenkins: 8080
+Default path for Jenkins: /var/lib/jenkins
+
