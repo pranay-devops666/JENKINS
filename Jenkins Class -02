@@ -42,6 +42,44 @@ jenkins.repo file will appear
 
 12. select that created job -------------> do configure the job-------> select GIT ------> repo url: copy & paste here github repo-url
 
-13. 
+13. Jenkins Dashboard has been launched
 
-10. Jenkins Dashboard has been launched
+
+now we need to get the code having inside github automatically into a CI server ci server means jenkins EC2-Instance
+
+for this process we will create a pipeline here
+
+suppose when the developer made changes like commit and done push in acode those changes will get pull to CI Server automatically
+
+what will happen if this process automatically is Build + Test will be done 
+
+first we need to create a Job
+
+Job is nothing but a task
+
+first go to Jenkins dashboard----------> select create a job -----------> name:whatever our wish--------------> select freestyle------>ok
+
+selct created job------------> do configure ---------> select GIT -------> copy & paste git-hub url-repo (provide always https, ssh will wont work in jenkins)
+---------> click -------> build now
+
+after build was get success
+
+now code will get to CI Server(Jenkins Server)
+
+In Interview they will ask 
+
+If the pipeline will get faied what you will do
+Ans.I will open the console output to check the logs
+
+For automation ---------> means whenever the developer made changes ina code and done commits that changes will be happen in application automatically no need to 
+build manual
+
+for this we will use web-hook process
+
+first go to github ---------> select one repo public/private---------> select settings ---------> select developer settings------> select webhooks--------> add 
+webhook---------> payload url: https:publicIp of ec2-instance:8080/github-webhook/(jenkins url)--------> content type: application/json--------> add
+
+open created job-------> do configure------> select triggers----------> GitHub hook trigger for GITScm polling----------> save
+
+now when the developer made changes into a code automatically changes will may apply to application as well
+
