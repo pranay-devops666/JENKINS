@@ -100,6 +100,30 @@ Below Commands for practice
 
 2. open a new browser tab---------> jenkins.io -------> enter
 
-3. 
+3. yum install java-17-amazon-corretto -y
+java -version
+sudo wget -O /etc/yum.repos.d/jenkins.repo     https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+yum install jenkins -y
+systemctl status jenkins
+systemctl start jenkins
+systemctl status jenkins
+
+4. ll /etc/yum.repos.d/ -------------> enter
+
+jenkins.repo file will appear
+
+5. after getting jenkins started --------------> do copy public IP of EC2-Instance and paste in a new tab with port number 8080
+
+6. Administrator password will be asked for the passowrd path will also be given over there
+
+7. /var/lib/jenkins/secrets/initialAdminPassword----------> give this password like this way below
+
+8. cat /var/lib/jenkins/secrets/initialAdminPassword ------------> after giving like this one secret password will come
+
+9. do paste that password and continue
+
+10. Jenkins Dashboard has been launched
+
 
 
