@@ -1,0 +1,1 @@
+Todays notes: https://devops-cicd.hashnode.dev/integrating-git-with-jenkins-a-complete-guide
