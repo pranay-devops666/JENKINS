@@ -2,3 +2,104 @@ Jenkins Class -01
 
 
 TOPIC: JENKINS INTRODUCTION & JENKINS SET-UP
+
+
+CI & CD
+
+Continius Integration & Continous Deployment
+
+Continous Integration ------> It is the combination of continous build & continous continous test
+
+Continous Integration = Continous Build + Continous Test
+
+Continous Integration
+=======================
+
+Whenever a developer commits the code using Source code management like GIT, then CI pipeline gets the changes of the code runs automatically build and unit test.
+
+* Due to integrating the new code with old code, we can easily get to know the code is a success or failure.
+* It finds the Error more quickly
+* Delivery the products to client more frequently
+* Developers dont need to manual tasks
+* Reduces the developers time 20% to 30%
+
+
+Before CI & After CI
+====================
+
+Before CI
+============
+
+CI Server 
+
+Here Buil, Test & Deploy all these activities are performed in a single CI Server
+
+CI Server = Build + Test
+
+After CI
+===========
+
+
+
+
+Continous Delivery/Deployment 
+===================================
+
+Continous Delivery
+===================
+
+Continous Delivery is making it avilable for deploymen. Anytime a new build artifact is automatically placed it in the desired environment and deployed.
+
+Continous Deployment
+=====================
+
+Continous Deployment is when you commit your code then its get automatically tested, build and deploy on the production server.
+
+Example:- Spotify, Facebook
+
+CI/CD Pipeline:
+=================
+
+--->Version Control--------> Build ----------> Unit Test ------------> Deploy -----------> Auto Test ------------> Deploy to Production Measure + Validate
+|------------------------------------------------------------Production Feedback---------------------------------------------|
+
+
+* Its looks like Software Development Life Cycle, But let's see how it works
+* Lets Consider an example, if you are developing a web application.
+
+CODE          BUILD        TEST         DEPLOY
+Stage-1      Stage-2      Stage-3      Stage-4
+
+
+CI/CD ------------------> Pipelines
+
+Jenkins: Pipeline
+
+* Jenkins is an open source project written an JAVA by kohsuke kawaguchi it runs on the window, Linux and Mac OS
+* It is community supported, free to use, and the first choice for continous Integration.
+* Consists of plugins
+* Automate the Entire Software Development Life Cycle(SDLC)
+* It was originally developed by Sun MicroSystem in 2004 as HUDSON.
+* HUDSON was an enterprise edition we need to pay for it.
+
+1. The project was renamed Jenkins when Oracle brought the Microsystems.
+
+* It can run on any major platform without Compatibility issues.
+* whenever developers write code, we integrate all the code of all developers at any point in time and we build, test and deploy it to the client. 
+This is called CI/CD.
+
+
+
+
+Launch one Ec2-Instance----------> Name: CI-Server----------> 6.1 kernel version --------> c7i-flex-large ----------> with key pair----------> Security group 
+(1.ssh, anywhere 2.custom TCP, port range:8080)--------> 8gb volume ------------> launch Instance & Connect Instance
+
+Below Commands for practice
+
+1. yum install java-17-amazon-correctto -y ----------------> Command to install java-17th version
+
+2. open a new browser tab---------> jenkins.io -------> enter
+
+3. 
+
+
