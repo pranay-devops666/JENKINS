@@ -1,3 +1,15 @@
 Jenkins Class -03
 
 TOPIC: POLL SCM, BUILD PERIODICALLY, EXECUTE SHELL, UPSTREAM & DOWNSTREAM
+
+
+Launch one EC2-Instance and launch Jenkins Dashboard like below
+
+Launch EC2-Instance------> name:jenkins---------> instance type: c7i-flex-large----------> with keypair------------> jenkis security group--------> 18ebs volume --->finish
+
+Connect EC2-Instance
+
+Commands starts here like below
+================================
+
+
