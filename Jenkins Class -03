@@ -12,4 +12,30 @@ Connect EC2-Instance
 Commands starts here like below
 ================================
 
+do set-up jenkins dashborad
+
+sudo yum update –y
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo yum upgrade
+sudo yum install java-17-amazon-corretto -y
+sudo yum install jenkins git -y
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+sudo systemctl status jenkins
+
+above all commands are to set-up the jenkins dashboard
+
+now do copy the Public IP of EC2-Instance and paste in a new tab with port number 8080 like below
+
+http://184.72.127.195:8080/
+
+Jenkins dashboard has been launched
+
+lets create the job
+
+create a new job--------> freestyle------> ok 
+
+select created job-----> select git-----> paste here github repo url------> save --------> build now
+
 
