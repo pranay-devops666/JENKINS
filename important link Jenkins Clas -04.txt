@@ -1,0 +1,6 @@
+Imp links : 
+
+
+app code link : https://github.com/devops0014/one.git
+scripts link : https://github.com/devops0014/all-setups.git
+tomcat verison link : https://dlcdn.apache.org/
