@@ -39,3 +39,104 @@ create a new job--------> freestyle------> ok
 select created job-----> select git-----> paste here github repo url------> save --------> build now
 
 
+BUILD PERIODICALLY
+======================
+
+It contains 5 stars
+
+*    *     *     *     *
+
+1st * represents No.of Minutes
+2nd * represents No.of Hours
+3rd * represents Day of the Month(date)
+4th * represents which month
+5th * represents Day of a week
+
+sunday=0
+monday=1
+tuesday=2
+wednesday=3
+thursday=4
+friday=5
+saturday=6
+
+*/5 * * * * --------------> This represents Build will done every 5 minutes
+
+Ex: 2nd Feb 12:12 PM ---------> for this build periodically will be written under below
+
+12  12  25  2  3 ----------> this means 12 Hours, 12 Minutes, Date 25th, Feb Month, Day of week Wednesday(3)
+*   *   *   *  *
+
+12 */2 * * * ----------------> It represents every day for 2 hours 12th minute build periodially will be done
+
+https://crontab.guru/----------> this is the link to generate schedule a BUILD as prr our requirements
+
+now do select created job-------> do configure--------> select poll SCM------>give there as * * * * *-------> save and build
+
+Here we need to remeber one point as per given above input Build will done every minute 
+
+Every minute Build will be done in the condition is when the developer will done commits after that the schedule build will be done
+
+In interview question
+=====================
+
+Difference between WEBHOOKS & POLL SCM
+
+Webhooks -------> whenever dev coomit then auto build schedule
+Poll SCM -------> it depends on time, we need to use cron for schedule commit
+
+
+Build should be done after the developer will made changes like commits done the build will be done for that we used weebhooks & poll scm
+another alternative way also there that option is Build Periodically
+Build Periodically ---------> means it doesn't take consideration related to code or no need to commit the code to done build 
+
+example
+=========
+
+select created job---------> select triggers---->select build periodically------> do schedule here(12  12  25  2  3)----> save
+
+if we select build periodically developer no need to do commit the code as per scheduled time the build will done at that scheduled time
+
+
+ In interview question
+=====================
+
+Difference between WEBHOOKS & POLL SCM & Build Periodically
+
+Webhooks -------> whenever dev coomit the code then auto build schedule
+Poll SCM -------> it depends on time, we need to use cron for schedule commit
+Build Periodically --------> in here we will use same cron schedule if the developer done commits or not the build will be done as per scheduled time
+
+
+
+EXECUTE SHELL(Build steps optin in jenkins)
+=============================================
+
+select created job -------------> do configure---------> select Build steps----> select Execute shell------> touch aws------> save build
+
+
+UP STREAM & DOWN STREAM
+=========================
+
+for example i have 4 jobs like below
+
+1. code----------> 2. build-----------> 3. test----------> 4. deploy
+job-1                job-2              job-3              job-4
+
+now my requirement is if i execute this job-1 if it success means then automatically 2nd job also will should be trigger upto 4th job
+
+will do in real time
+
+lets create a 4 jobs
+
+now if i build the job-1 manually then automatically remaining jobs should be also build
+
+go to job-2 -----------> select option as build after other projects are build--------->give here as job-1(called as up stram job of job-1 for job-2)
+go to job-3 -----------> select option as build after other projects are build--------->give here as job-2(called as up stram job of job-2 for job-3)
+go to job-4 -----------> select option as build after other projects are build--------->give here as job-3(called as up stram job of job-3 for job-4)
+
+successfully jobs done one sftr one after doing build the job-1 manually
+
+
+
+
