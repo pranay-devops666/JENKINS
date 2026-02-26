@@ -287,6 +287,17 @@ hostnamectl set-hostname "Jenkins" ----------> command to change hostname for JE
 
 now we need to install NEXUS on NEXUS EC2-Instance by following below commands
 
+STEPS TO SETUP AN NEXUS DASHBOARD
+====================================
+
+1. Instance type: 2 cpus & 4 GB RAM & 20 GB EBS
+2. Java install
+3. Nexus download(sonatype nexus)
+4. untar (unzip)
+5. change the owners of those files (nexus)
+6. Nexus user create
+7. login as user and nexus start
+
 yum install java-17-amazon-corretto -y--------------> command to install java-17th version
 
 now create on folder
@@ -299,6 +310,8 @@ https://help.sonatype.com/en/install-nexus-repository.html
 https://help.sonatype.com/en/download.html
 
 wget https://download.sonatype.com/nexus/3/nexus-3.89.1-02-linux-x86_64.tar.gz----------> command to download nexus 
+
+[root@NEXUS ~]# tar -zxvf nexus-3.89.1-02-linux-x86_64.tar.gz--------> command to unzip the file
 
 total 454244
 -rw-r--r--. 1 root root 465144623 Feb 11 12:16 nexus-3.89.1-02-linux-x86_64.tar.gz
@@ -378,6 +391,69 @@ total 275996
 Starting nexus
 [nexus@NEXUS bin]$
 
+Sonatype Nexus Repository Dashboard has been Launched
+
+why we are using the NEXUS is to store the Artifacts by creating a repository and we stored in it
+
+Go to Sonatype Nexus Repository Dashboard------> select settings --------> select repository-----> create new repo------> select maven2(hosted) option----->
+name:repo name------>in deployment policy: allow redploy(means we can store our war file multiple times)------> create repository
+
+repo has been created
+
+now developers will update this created information in pom.xml like information related to created repo of name, url like below
+
+go to github code --------->open pom.xml file------> open it in here we need to update Artifact_URL in line number 36 & save commit
+
+now we need to store the war file in Sonatype Nexus Repository Dashboard of created repo
+
+to do like that we need to integrate to jenkins with the help of jenkins plugin
+
+Go to Jenkins Dashboard--------> go to manage jenkins---------> selct plugins, available plugins-------> search as nexusartifact uploder plugin-------> install it
+
+do configure created job---------> select build steps-----> nexus artifact uploder---------> fill all details here nexus version as official document, protocal:HTTP
+------>url:copy and paste here nexus dashbord url like only public IP & port number 8081----------> add nexus credentials-------> GroupId:it will be in pom.xml at
+line number:4--------> version it will be in pom.xml at line no:7--------> give repo name:My-Repo------> add Artifacts:ArtifactId:it will be in pom.xml at line no:5
+as myweb----------> type:war-------> File path: target/myweb-8.7.1.war(it will be seen in target folder) ---------> save & build now
+
+Build was successful
+
+now we can deploy the application by taking an seperate Tomcat EC2-Instance
+
+Launch an Instance------. name:Jenkins------>kernel 6.1----------->c7i-flex-large---------> with keypair--------> jenkins security group-------> 20ebs ----> launch
+
+Launch and connect EC2-Instance
+
+vim tomcat.sh
+
+yum install java-17-amazon-corretto -y
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.115/bin/apache-tomcat-9.0.115.tar.gz
+tar -zxvf apache-tomcat-9.0.115.tar.gz
+sed -i '56  a\<role rolename="manager-gui"/>' apache-tomcat-9.0.115/conf/tomcat-users.xml
+sed -i '57  a\<role rolename="manager-script"/>' apache-tomcat-9.0.115/conf/tomcat-users.xml
+sed -i '58  a\<user username="tomcat" password="admin@123" roles="manager-gui, manager-script"/>' apache-tomcat-9.0.115/conf/tomcat-users.xml
+sed -i '59  a\</tomcat-users>' apache-tomcat-9.0.115/conf/tomcat-users.xml
+sed -i '56d' apache-tomcat-9.0.115/conf/tomcat-users.xml
+sed -i '21d' apache-tomcat-9.0.115/webapps/manager/META-INF/context.xml
+sed -i '22d'  apache-tomcat-9.0.115/webapps/manager/META-INF/context.xml
+sh apache-tomcat-9.0.115/bin/startup.sh
+
+:wq
+
+sh tomcat.sh
+
+Tomcat has been started
+
+Tomcat started.
+[root@ip-172-31-84-60 ~]#
+
+we need a plugin to install an application in jenkins
+
+Go to jenkins Dashboard--------> go to manage jenkins---------> select available plugins------> search as Deploy to Container and install it
+
+Do configure the job--------> select post-build actions-------> select deploy war/ear to container-------->target/*.war------> context:mynewapp------->
+add containers: Tomcat:9th version----------> add tomcat credentials-----> save & Build
+
+Application deployed successfully
 
 
 
