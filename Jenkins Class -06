@@ -274,8 +274,10 @@ we got the war file for that artifact war file we need to store for that storing
 
 Maintain always a seperate EC2-instance for NEXUS
 
-Launch an Instance------. name:Nexus------>kernel 6.1----------->c7i-flex-large---------> with keypair-------->  security group (create a new security group for NEXUS because nexus port number is 8081)
-slect security group ---------> edit 1. ssh, anywhere 2. custom tcp, port range:8081, anywhere group name: nexus security group---------> need minimum 20ebs for nexus
+Launch an Instance------. name:Nexus------>kernel 6.1----------->c7i-flex-large---------> with keypair-------->  security group 
+(create a new security group for NEXUS because nexus port number is 8081)
+slect security group ---------> edit 1. ssh, anywhere 2. custom tcp, port range:8081, anywhere group name: nexus security group---------> 
+--------> need minimum 20ebs for nexus
 upto 30gb  for free we will take 25 for this now----> launch
 
 Launch and connect EC2-Instance
@@ -290,4 +292,93 @@ yum install java-17-amazon-corretto -y--------------> command to install java-17
 now create on folder
 
 mkdir /app----> enter
+
+
+https://help.sonatype.com/en/install-nexus-repository.html
+
+https://help.sonatype.com/en/download.html
+
+wget https://download.sonatype.com/nexus/3/nexus-3.89.1-02-linux-x86_64.tar.gz----------> command to download nexus 
+
+total 454244
+-rw-r--r--. 1 root root 465144623 Feb 11 12:16 nexus-3.89.1-02-linux-x86_64.tar.gz
+[root@NEXUS app]#
+
+[root@NEXUS app]# ll
+total 454244
+drwxr-xr-x. 6 root root        94 Feb 26 06:33 nexus-3.89.1-02
+-rw-r--r--. 1 root root 465144623 Feb 11 12:16 nexus-3.89.1-02-linux-x86_64.tar.gz
+drwxr-xr-x. 3 root root        20 Feb 10 18:29 sonatype-work
+[root@NEXUS app]#
+
+cd nexus-3.89.1-02 -------> command to go to that folder
+
+[root@NEXUS nexus-3.89.1-02]# cd bin/
+[root@NEXUS bin]# ll
+total 275996
+-rwxr-xr-x. 1 root root      6735 Feb 10 17:53 nexus
+-rw-r--r--. 1 root root      1325 Feb 10 17:53 nexus.vmoptions
+-rw-r--r--. 1 root root 282604548 Feb 10 18:28 sonatype-nexus-repository-3.89.1-02.jar
+[root@NEXUS bin]# ./nexus start
+WARNING: ************************************************************
+WARNING: Detected execution as "root" user.  This is NOT recommended!
+WARNING: ************************************************************
+Starting nexus
+[root@NEXUS bin]#
+
+[root@NEXUS bin]# useradd nexus
+[root@NEXUS bin]# su - nexus
+[nexus@NEXUS ~]$
+[nexus@NEXUS app]$ ll
+total 454244
+drwxr-xr-x. 6 root root        94 Feb 26 06:33 nexus-3.89.1-02
+-rw-r--r--. 1 root root 465144623 Feb 11 12:16 nexus-3.89.1-02-linux-x86_64.tar.gz
+drwxr-xr-x. 3 root root        20 Feb 10 18:29 sonatype-work
+[nexus@NEXUS app]$ cd nexus-3.89.1-02/
+[nexus@NEXUS bin]$ ll
+total 275996
+-rwxr-xr-x. 1 root root      6735 Feb 10 17:53 nexus
+-rw-r--r--. 1 root root      1325 Feb 10 17:53 nexus.vmoptions
+-rw-r--r--. 1 root root 282604548 Feb 10 18:28 sonatype-nexus-repository-3.89.1-02.jar
+[nexus@NEXUS bin]$ ./nexus start
+Starting nexus
+./nexus: line 175: /app/sonatype-work/nexus3/nexus.pid: Permission denied
+[nexus@NEXUS bin]$
+
+Nexus has been started but got an error as ./nexus: line 175: /app/sonatype-work/nexus3/nexus.pid: Permission denied
+
+permission denied on line no.175
+
+solution is change the owners for it run as neus user
+
+[root@NEXUS bin]# ll
+total 275996
+-rwxr-xr-x. 1 root root      6735 Feb 10 17:53 nexus
+-rw-r--r--. 1 root root      1325 Feb 10 17:53 nexus.vmoptions
+-rw-r--r--. 1 root root 282604548 Feb 10 18:28 sonatype-nexus-repository-3.89.1-02.jar
+[root@NEXUS bin]# chown nexus:nexus nexus
+[root@NEXUS bin]# 
+[root@NEXUS bin]# su - nexus
+Last login: Thu Feb 26 06:36:45 UTC 2026 on pts/1
+[nexus@NEXUS ~]$
+[nexus@NEXUS ~]$ cd /app/nexus-3.89.1-02/bin/
+[nexus@NEXUS ~]$ cd /app/
+[nexus@NEXUS app]$ ll
+total 454244
+drwxr-xr-x. 6 nexus nexus        94 Feb 26 06:33 nexus-3.89.1-02
+-rw-r--r--. 1 root  root  465144623 Feb 11 12:16 nexus-3.89.1-02-linux-x86_64.tar.gz
+drwxr-xr-x. 3 nexus nexus        20 Feb 10 18:29 sonatype-work
+[nexus@NEXUS app]$ cd nexus-3.89.1-02/bin/
+[nexus@NEXUS bin]$ ll
+total 275996
+-rwxr-xr-x. 1 nexus nexus      6735 Feb 10 17:53 nexus
+-rw-r--r--. 1 nexus nexus      1325 Feb 10 17:53 nexus.vmoptions
+-rw-r--r--. 1 nexus nexus 282604548 Feb 10 18:28 sonatype-nexus-repository-3.89.1-02.jar
+[nexus@NEXUS bin]$ ./nexus start
+Starting nexus
+[nexus@NEXUS bin]$
+
+
+
+
 
