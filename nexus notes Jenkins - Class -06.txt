@@ -1,0 +1,1 @@
+Todays class notes : https://devops-cicd.hashnode.dev/jenkins-integrated-with-nexus
