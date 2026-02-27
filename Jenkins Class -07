@@ -8,6 +8,9 @@ Launch an Instance------. name:Jenkins------>kernel 6.1----------->c7i-flex-larg
 
 Launch and connect EC2-Instance
 
+https://devops-cicd.hashnode.dev/introducing-the-power-of-pipelines-in-jenkins
+https://devops-cicd.hashnode.dev/how-to-write-your-first-pipeline-in-jenkinsfile
+
 do set-up jenkins dashboard like below
 
 sudo yum update –y
@@ -22,4 +25,112 @@ sudo systemctl status jenkins
 
 above all commands to set-up a Jenkins Dashboard
 
+what is pipeline
+===================
+
+It is a group of stages that are interlinked with each other to perform an action
+
+we are using to deploy the application
+
+2 types of pipelines
+1. free-style pipeline
+2. pipeline
+
+create a new job----------> select pipeline option ----------> in here we will write pipeline
+
+pipeline {
+    agent any
+    stages {
+        stage ("Code") {
+            steps {
+                echo "welcome to february 2026"
+            }
+        }
+    }
+}
+
+save --------> build
+
+Build got success & Output as --------> welcome to february 2026
+
+
+Always remember there is only one step inside a stage
+
+pipeline {
+    agent any
+    stages {
+        stage ("Code") {
+            steps {
+                echo "welcome to february 2026"
+            }
+        }
+        stage ("Build") {
+            steps {
+                echo "Happy Tailor's Day"
+            }
+        }
+        stage ("Test") {
+            steps {
+                echo "This is testing stage"
+            }
+        }
+    }
+}
+
+save --------> build
+
+Build got success
+
+if we want to see the output we can see in console output
+
+go to manage jenkins-------> selet available plugins------> search as pipeline stage-view-----> install it
+
+pipeline stage-view plugin is used to view the job Builds output as stage view
+
+pipeline {
+    agent any
+    stages {
+        stage ("Code") {
+            steps {
+                sh 'touch files'
+                sh 'mkdir folders'
+                sh 'cal'
+            }
+        }
+        stage ("Stage-2") {
+            steps {
+                echo "this is my stage-2"
+                sh 'timedatectl'
+            }
+        }
+    }
+}
+
+save --------> build
+
+Build got success
+
+pipeline {
+    agent any
+    stages {
+        stage ("Commands") {
+            steps {
+                sh '''
+                   touch files name
+                   mkdir folder name
+                   cal
+                   timedatectl
+                   '''
+            }
+        }
+    }
+}
+
+above pipeline to give all commands at a time
+
+
+
+save --------> build
+
+Build got success
 
