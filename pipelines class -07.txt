@@ -1,0 +1,4 @@
+Todays class notes :
+https://devops-cicd.hashnode.dev/introducing-the-power-of-pipelines-in-jenkins
+https://devops-cicd.hashnode.dev/how-to-write-your-first-pipeline-in-jenkinsfile
+

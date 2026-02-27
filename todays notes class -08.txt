@@ -1,0 +1,42 @@
+Todays class notes : https://devops-cicd.hashnode.dev/jenkins-pipeline-to-deploy-java-application-git-maven-nexus-tomcat
+
+
+Code Stage errors:
+1. git install
+2. correct repo configure (https)
+3. branch configurations
+4. credentials valid 
+
+
+
+
+
+
+Build stage errors:
+
+
+1. when you dont have pom.xml in your code
+2. when maven is not configured properly  
+tools {
+maven "mymaven"
+}
+3. typo 
+sh "mvn clean package"
+4. version issues with maven
+
+
+
+
+Artifact:
+1.  nexus version (3 or 2)
+2. https or http
+3. use live ip (nexus server)
+4. pom.xml configuration
+5. nexus credentials 
+6. war file location (target/war)
+
+
+Deploy:
+1. tomcat url
+2. tomcat credentials 
+3. target/*.war
