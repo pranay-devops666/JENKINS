@@ -134,3 +134,42 @@ save --------> build
 
 Build got success
 
+
+pipeline {
+    agent any
+    stages {
+        stage ("Code") {
+            steps {
+                git branch: 'main', url: 'https://github.com/pranay-devops666/Python-Automation-Scripts.git'
+            }
+        }
+    }
+}
+
+save --------> build
+
+Build got success
+
+
+
+pipeline {
+    agent any
+    tools {
+        maven 'mymaven'
+    }
+    stages {
+        stage ("Code") {
+            steps {
+                git branch: 'main', url: 'https://github.com/pranay-devops666/Python-Automation-Scripts.git'
+            }
+        }
+        stage ("Build") {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+    }
+}
+save --------> build
+
+Build got success
