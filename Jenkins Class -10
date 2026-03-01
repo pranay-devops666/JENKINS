@@ -2,3 +2,117 @@ Jenkins Class -10
 
 TOPIC: JENKINS PARAMETERS VARIABLESAND THIN BACKUP
 ================================================
+
+
+Launch an Instance------. name:Jenkins------>kernel 6.1----------->c7i-flex-large---------> with keypair--------> jenkins security group-------> 20ebs ----> launch
+
+Launch and connect EC2-Instance
+
+do set-up jenkins dashboard like below
+
+sudo yum update –y
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo yum upgrade
+sudo yum install java-17-amazon-corretto -y
+sudo yum install jenkins git -y
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+sudo systemctl status jenkins
+
+above all commands to set-up a Jenkins Dashboard
+
+Go to jenkins Dashboard--------> select a create job---------> select pipeline job------------> name:mypipelinejob------------> ok
+
+pipeline {
+    agent any
+    stages {
+        stage ("Code") {
+            steps {
+                git branch: 'main', url: 'https://github.com/pranay-devops666/one.git'
+            }
+        }
+    }
+}
+
+save &  Build
+
+Now i will get output from main branch only
+
+If i want output from master branch means we need to change main to master like  below
+
+pipeline {
+    agent any
+    stages {
+        stage ("Code") {
+            steps {
+                git branch: 'master', url: 'https://github.com/pranay-devops666/one.git'
+            }
+        }
+    }
+}
+
+save & Build
+
+We done all above process are called as Manual process
+
+Instead of doing this manual we can do automatic like below with parameters in job configuration
+
+for choice parameter
+
+select created job---------> do configure-----> select general------> select this project is parameterised--------> select choice parameter------> give here branch 
+names like:main, master, etc names branches
+
+for choice parameter
+
+pipeline {
+    agent any
+    stages {
+        stage ("Code") {
+            steps {
+                git branch: '$mybranch', url: 'https://github.com/pranay-devops666/one.git'
+            }
+        }
+    }
+}
+
+save & Build
+
+
+For string parameter
+
+select string parameter-------> name:mybranch-------> save and build with parameters
+
+string parameter-------> name:name
+
+pipeline {
+    agent any
+    stages {
+        stage ("Code") {
+            steps {
+                echo "my name is $name"-----------> it will use if we want to pass any information during the build 
+            }
+        }
+    }
+}
+
+save & Build
+
+Now i want to pass a variable through pipeline
+
+pipeline {
+    agent any
+    environment {
+        course = "DevOps"
+    }
+    stages {
+        stage ("Code") {
+            steps {
+                echo 'I am learning $course'
+            }
+        }
+    }
+}
+
+save & Build
+
