@@ -591,6 +591,12 @@ go to port number line number 72 remove here port number 8080 and keep port numb
 
 
 
+go to aws dashboard ---------> select jenkins securiy group-------> select In-bound rule ---------> add new rule as 1234---------> save 
+
+now we can able to access jenkis with port number 1234
+
+https//Jenkins-EC2-Instance public IP:1234
+
 
 
 
