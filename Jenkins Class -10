@@ -141,3 +141,419 @@ LOCAL & GLOBAL VARIABLES
 In pipeline will have multiple stages
 
 
+Global variable:
+================
+
+we can able to access and pass the variable to all stages it is called Global variable
+
+Local Variable:
+===================
+
+We want to access and pass the variable in a particular specific stage it is called Local variable
+
+pipeline {
+    agent any
+    environment {
+        cloud = "aws"
+    }
+    stages {
+        stage ("Stage-1") {
+            steps {
+                echo "I am learning $cloud"
+            }
+        }
+        stage ("Stage-2") {
+            steps {
+                echo "I am learning $cloud"
+            }
+        }
+        stage ("Stage-3") {
+            steps {
+                echo "I am learning $cloud"
+            }
+        }
+        stage ("Stage-4") {
+            steps {
+                echo "I am learning $cloud"
+            }
+        }
+    }
+}
+
+save & Build 
+
+
+This above is Global Variable
+
+Following output below
+========================
+
+Started by user pranay babu gorantla
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/pipe
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Stage-1)
+[Pipeline] echo
+I am learning aws
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Stage-2)
+[Pipeline] echo
+I am learning aws
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Stage-3)
+[Pipeline] echo
+I am learning aws
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Stage-4)
+[Pipeline] echo
+I am learning aws
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
+
+Now i want to gie specific particular variable to a specific stage we can write like this below
+
+pipeline {
+    agent any
+    environment {
+        cloud = "aws"
+    }
+    stages {
+        stage ("Stage-1") {
+            steps {
+                echo "I am learning $cloud"
+            }
+        }
+        stage ("Stage-1") {
+            environment {
+                course = "devops"
+            }
+            steps {
+                echo "I am learning $cloud & $course"
+            }
+        }
+        stage ("Stage-3") {
+            steps {
+                echo "I am learning $cloud"
+            }
+        }
+        stage ("Stage-4") {
+            steps {
+                echo "I am learning $cloud"
+            }
+        }
+    }
+}
+
+save & Build 
+
+
+This above is Local Variable
+
+Following output below
+========================
+
+Started by user pranay babu gorantla
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/pipe
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Stage-1)
+[Pipeline] echo
+I am learning aws
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Stage-2)
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] echo
+I am learning aws & devops
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Stage-3)
+[Pipeline] echo
+I am learning aws
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Stage-4)
+[Pipeline] echo
+I am learning aws
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
+
+
+If we want to run variables in all pipeline jobs we need to configure in systems like below
+
+go to manage jenkins-------> select systems------> navigate to Global properties --------> select environment variables:In here we can pass variables----->
+-----------> name:myvaraible:pranay-------> save
+
+pipeline {
+    agent any
+    environment {
+        cloud = "aws"
+    }
+    stages {
+        stage ("Stage-1") {
+            steps {
+                echo "I am learning $cloud and my name is $myvariable"
+            }
+        }
+        stage ("Stage-2") {
+            environment {
+                course = "devops"
+            }
+            steps {
+                echo "I am learning $cloud & $course"
+            }
+        }
+        stage ("Stage-3") {
+            steps {
+                echo "I am learning $cloud and i am learning $mytools"
+            }
+        }
+        stage ("Stage-4") {
+            steps {
+                echo "I am learning $cloud"
+            }
+        }
+    }
+}
+
+save & build
+
+Following output below
+========================
+
+Started by user pranay babu gorantla
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/pipe
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Stage-1)
+[Pipeline] echo
+I am learning aws and my name is pranay
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Stage-2)
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] echo
+I am learning aws & devops
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Stage-3)
+[Pipeline] echo
+I am learning aws and i am learning babu
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Stage-4)
+[Pipeline] echo
+I am learning aws
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
+
+In jenkins there will be variables By-Default
+
+for that we will use command as printenv
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                sh 'printenv'
+            }
+        }
+    }
+}
+
+
+save & Build
+
+Following output for jenkins de-fault variables below
+======================================================
+
+Started by user pranay babu gorantla
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/pipe
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Hello)
+[Pipeline] sh
++ printenv
+RUN_TESTS_DISPLAY_URL=http://3.83.91.59:8080/job/pipe/8/display/redirect?page=tests
+JENKINS_SERVER_COOKIE=durable-e3825eb903e9ebc22f3130ce5b60e19755541f2e04f7b08d4ccc0181334aa1a3
+RUN_CHANGES_DISPLAY_URL=http://3.83.91.59:8080/job/pipe/8/display/redirect?page=changes
+HUDSON_HOME=/var/lib/jenkins
+PWD=/var/lib/jenkins/workspace/pipe
+LOGNAME=jenkins
+BUILD_URL=http://3.83.91.59:8080/job/pipe/8/
+JOB_URL=http://3.83.91.59:8080/job/pipe/
+BUILD_NUMBER=8
+SYSTEMD_EXEC_PID=16265
+_=/usr/bin/printenv
+JENKINS_NODE_COOKIE=ee819f47-6c78-41f7-b85e-07bcf32d89da
+BUILD_DISPLAY_NAME=#8
+mytools=babu
+HOME=/var/lib/jenkins
+LANG=C.UTF-8
+JENKINS_URL=http://3.83.91.59:8080/
+JOB_BASE_NAME=pipe
+JOB_NAME=pipe
+INVOCATION_ID=c7ebfe13a80145879601b7d16b539ad9
+RUN_DISPLAY_URL=http://3.83.91.59:8080/job/pipe/8/display/redirect
+JOB_DISPLAY_URL=http://3.83.91.59:8080/job/pipe/display/redirect
+WORKSPACE=/var/lib/jenkins/workspace/pipe
+HUDSON_URL=http://3.83.91.59:8080/
+NODE_NAME=built-in
+USER=jenkins
+HUDSON_SERVER_COOKIE=4a7f126deeed7011
+NOTIFY_SOCKET=/run/systemd/notify
+SHLVL=2
+BUILD_TAG=jenkins-pipe-8
+EXECUTOR_NUMBER=0
+HUDSON_COOKIE=10086483-b423-44f4-9d35-a831f8b98c3b
+JENKINS_HOME=/var/lib/jenkins
+NODE_LABELS=built-in
+STAGE_NAME=Hello
+JOURNAL_STREAM=8:34464
+WORKSPACE_TMP=/var/lib/jenkins/workspace/pipe@tmp
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+CI=true
+RUN_ARTIFACTS_DISPLAY_URL=http://3.83.91.59:8080/job/pipe/8/display/redirect?page=artifacts
+BUILD_ID=8
+myvariable=pranay
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
+
+Now i would like to print my Job-name & Jenkins URL for that we will write the pipeline like below
+===================================================================================================
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo "my job name is $JOB_NAME and url is $JENKINS_URL"
+            }
+        }
+    }
+}
+
+
+save and build
+
+Following output below
+========================
+
+Started by user pranay babu gorantla
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/pipe
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Hello)
+[Pipeline] echo
+my job name is pipe and url is http://3.83.91.59:8080/
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
+TOPIC: THIN BACK-UP
+=======================
+
+In JENKINS everything will be store in Jenkind de-fault path is (cd /var/lib/jenkins)
+                                                                ======================
+
+[root@ip-172-31-82-235 ~]# cd /opt/
+[root@ip-172-31-82-235 opt]# ll
+total 0
+drwxr-xr-x. 4 root root 33 Feb 14 00:08 aws
+[root@ip-172-31-82-235 opt]# mkdir mybackup
+[root@ip-172-31-82-235 opt]# ll
+total 0
+drwxr-xr-x. 4 root root 33 Feb 14 00:08 aws
+drwxr-xr-x. 2 root root  6 Mar  2 03:46 mybackup
+[root@ip-172-31-82-235 opt]# chown jenkins:jenkins mybackup/
+[root@ip-172-31-82-235 opt]# ll
+total 0
+drwxr-xr-x. 4 root    root    33 Feb 14 00:08 aws
+drwxr-xr-x. 2 jenkins jenkins  6 Mar  2 03:46 mybackup
+[root@ip-172-31-82-235 opt]# pwd
+/opt
+[root@ip-172-31-82-235 opt]# ll
+total 0
+drwxr-xr-x. 4 root    root    33 Feb 14 00:08 aws
+drwxr-xr-x. 3 jenkins jenkins 35 Mar  2 03:51 mybackup
+[root@ip-172-31-82-235 opt]# 
+
+First we need to install plugin name as Thinback--------> and need to be configure in system--------> go to manage jenkins --------> select system---->
+navigate to thinback configuration--------> give backup path: /opt/backup (for to setup this path do steps in ec2-instance like above)------>
+-------->tick move old backups to zip files (for selcting this storage will be saved adn files will be get compressed)
+------->save & do backup like below
+
+go to manage jenkins------> select thinbackup ------> click on backup button
+
+[root@ip-172-31-82-235 opt]# ll
+total 0
+drwxr-xr-x. 4 root    root    33 Feb 14 00:08 aws
+drwxr-xr-x. 3 jenkins jenkins 35 Mar  2 03:51 mybackup
+[root@ip-172-31-82-235 opt]# 
+
