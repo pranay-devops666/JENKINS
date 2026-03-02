@@ -2,3 +2,22 @@ Jenkins Class -11
 
 TOPIC: JENKINS PIPELINE, INPUT POST BUILD ACTIONS & DISCARD OLD BUILDS
 ===========================================================================
+
+
+Launch an Instance------. name:Jenkins------>kernel 6.1----------->c7i-flex-large---------> with keypair--------> jenkins security group-------> 20ebs ----> launch
+
+Launch and connect EC2-Instance
+
+do set-up jenkins dashboard like below
+
+sudo yum update –y
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo yum upgrade
+sudo yum install java-17-amazon-corretto -y
+sudo yum install jenkins git -y
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+sudo systemctl status jenkins
+
+
