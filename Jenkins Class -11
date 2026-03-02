@@ -21,3 +21,556 @@ sudo systemctl start jenkins
 sudo systemctl status jenkins
 
 
+The difference between Continous Delivery & Continous Deployment
+===================================================================
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Code') {
+            steps {
+                echo 'This is code stage'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'This is Build stage'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'This is Test stage'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'This is Deploy stage'
+            }
+        }
+    }
+}
+
+
+save & Build 
+
+The above basic pipeline has deployed automatically
+
+Now i wnat to do manual approval while deploying te application from the release manager in Deploy stage 
+Need to ask approval in the Deploy stage to deploy the application
+
+For that I will take here as INPUT FUNCTION
+                            ==================
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Code') {
+            steps {
+                echo 'This is code stage'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'This is Build stage'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'This is Test stage'
+            }
+        }
+        stage('Deploy') {
+            input {
+                message "Can i Deploy"
+            }
+            steps {
+                echo 'This is Deploy stage'
+            }
+        }
+    }
+}
+
+
+save & Build
+
+Place cursor on console output bUild it will ask option as Can I Deploy? Proceed Abort--------> click proceed
+
+Started by user pranay babu gorantla
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/MyDeployment
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Code)
+[Pipeline] echo
+This is code stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] echo
+This is Build stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] echo
+This is Test stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] input
+Can i Deploy
+Proceed or Abort
+Approved by pranay babu gorantla
+[Pipeline] echo
+This is Deploy stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
+
+TOPIC: POST BUILD ACTIONS
+===============================
+
+Why we use this is sometimes our pipeline will get success, failure or Abort also
+
+What I want is whatever its happens like success, failure or Abort I need to get status notification like Email Notification
+
+for the above purpose we will use Post-Build Actions
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Code') {
+            steps {
+                echo 'This is code stage'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'This is Build stage'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'This is Test stage'
+            }
+        }
+        stage('Deploy') {
+            input {
+                message "Can i Deploy"
+            }
+            steps {
+                echo 'This is Deploy stage'
+            }
+        }
+    }
+    post {
+        success {
+            echo 'my pipeline is success'
+        }
+    }
+}
+
+
+save & Build
+
+Started by user pranay babu gorantla
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/MyDeployment
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Code)
+[Pipeline] echo
+This is code stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] echo
+This is Build stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] echo
+This is Test stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] input
+Can i Deploy
+Proceed or Abort
+Approved by pranay babu gorantla
+[Pipeline] echo
+This is Deploy stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+my pipeline is success
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Code') {
+            steps {
+                echo 'This is code stage'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'This is Build stage'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'This is Test stage'
+            }
+        }
+        stage('Deploy') {
+            input {
+                message "Can i Deploy"
+            }
+            steps {
+                echo 'This is Deploy stage'
+            }
+        }
+    }
+    post {
+        success {
+            echo 'my pipeline is Failure'
+        }
+    }
+}
+
+
+save & Build
+
+Started by user pranay babu gorantla
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/MyDeployment
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Code)
+[Pipeline] echo
+This is code stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] echo
+This is Build stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] echo
+This is Test stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] input
+Can i Deploy
+Proceed or Abort
+Approved by pranay babu gorantla
+[Pipeline] echo
+This is Deploy stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+my pipeline is Failure
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Code') {
+            steps {
+                echo 'This is code stage'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'This is Build stage'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'This is Test stage'
+            }
+        }
+        stage('Deploy') {
+            input {
+                message "Can i Deploy"
+            }
+            steps {
+                echo 'This is Deploy stage'
+            }
+        }
+    }
+    post {
+        success {
+            echo 'my pipeline is Aborted'
+        }
+    }
+}
+
+
+save & Build
+
+Started by user pranay babu gorantla
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/MyDeployment
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Code)
+[Pipeline] echo
+This is code stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] echo
+This is Build stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] echo
+This is Test stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] input
+Can i Deploy
+Proceed or Abort
+Approved by pranay babu gorantla
+[Pipeline] echo
+This is Deploy stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+my pipeline is Aborted
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Code') {
+            steps {
+                echo 'This is code stage'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'This is Build stage'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'This is Test stage'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'This is Deploy stage'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'This will be printed anyway'
+        }
+    }
+}
+
+
+save & Build
+
+tarted by user pranay babu gorantla
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/MyDeployment
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Code)
+[Pipeline] echo
+This is code stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] echo
+This is Build stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] echo
+This is Test stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] echo
+This is Deploy stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+This will be printed anyway
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
+
+TOPIC: E-MAIL NOTIFICATION
+===========================
+
+SMTP----> SIMPLE MAIL TRANSFER PROTOCALL
+
+Install one plugin for it-------> go to manage Jenkins-----> select plugins------> Email Extension Template --------> do install it----------> go to manage jenkins
+--------> navigate to option like E-mail Notification---->mgive here as SMTP server: smtp.gmail.com--------> Advanced:select Use SMTP Authentiation-----> 
+user name: give here our gmailID:gorantlapranay8@gmail.com-----------> password generate a token in Gmail Account copy & Paste here-----> tick use SSL
+-------> SMTP Port:465------> Ready-To Address: give here our gmail ID:gorantlapranay8@gmail.com------> Tick Test e-mail receipient------> give here 
+our gmail ID:gorantlapranay8@gmail.com-------> save & Test configuration -------> email was sent
+
+
+Go to our Gmail Account--------> select profile-------> select App Password--->Enter your Gmail Password-------> here we need to generate a token like----->
+email-integration-with-jenkins--------> create --------> copy and paste the token code in above configure steps
+
+How to us ein our job pipeline as below script
+=================================================
+
+pipeline script to e-mail notification like below
+=====================================================
+
+post {
+    success {
+      mail to: 'gorantlapranay8@gmail.com',
+           subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+           body: "Good news — build succeeded!\n${env.BUILD_URL}"
+    }
+    failure {
+      mail to: 'gorantlapranay8@gmail.com',
+           subject: "PIPELINE STATUS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+           body: "*${currentBuild.current Result}: * Job ${env.JOB_NAME} \n build ${env.BUILD_NUMBER} \n more info at: ${env.BUILD_URL}"
+    }
+  }
+
+
+Aboe pipeline is the script to e-mail notification
+
+
+Whole job pipeline to email notification
+=========================================
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Code') {
+            steps {
+                echo 'This is code stage'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'This is Build stage'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'This is Test stage'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'This is Deploy stage'
+            }
+        }
+    }
+    post {
+    success {
+      mail to: 'gorantlapranay8@gmail.com',
+           subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+           body: "Good news — build succeeded!\n${env.BUILD_URL}"
+    }
+    failure {
+      mail to: 'gorantlapranay8@gmail.com',
+           subject: "PIPELINE STATUS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+           body: "*${currentBuild.current Result}: * Job ${env.JOB_NAME} \n build ${env.BUILD_NUMBER} \n more info at: ${env.BUILD_URL}"
+    }
+  }
+}
+
+save & Build 
+
+Build was success and sent to gmail successfully
+
+post {
+        always {
+            mail to: 'gorantlapranay8@gmail.com',
+            subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "Good news — build succeeded!\n${env.BUILD_URL}"
+    }
+
+
+
+
+
+TOPIC: LATEST 5 OR 10 BUILDS NEED TO SEE
+============================================
+
+go to job configure -----------> select discard old build------> select: 3 days-------> max no.buils:7-------> 
+
+
+
+
+
+
