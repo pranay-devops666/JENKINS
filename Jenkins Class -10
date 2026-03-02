@@ -557,3 +557,14 @@ drwxr-xr-x. 4 root    root    33 Feb 14 00:08 aws
 drwxr-xr-x. 3 jenkins jenkins 35 Mar  2 03:51 mybackup
 [root@ip-172-31-82-235 opt]# 
 
+[root@ip-172-31-82-235 opt]# ll
+total 0
+drwxr-xr-x. 4 root    root    33 Feb 14 00:08 aws
+drwxr-xr-x. 3 jenkins jenkins 74 Mar  2 03:55 mybackup
+[root@ip-172-31-82-235 opt]# cd mybackup/
+[root@ip-172-31-82-235 mybackup]# ll
+total 100
+-rw-r--r--. 1 jenkins jenkins 83454 Mar  2 03:55 BACKUPSET_2026-03-02_03-51_.zip
+drwxr-xr-x. 4 jenkins jenkins 16384 Mar  2 03:55 FULL-2026-03-02_03-55
+[root@ip-172-31-82-235 mybackup]# 
+
