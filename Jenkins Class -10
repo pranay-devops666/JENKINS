@@ -568,3 +568,10 @@ total 100
 drwxr-xr-x. 4 jenkins jenkins 16384 Mar  2 03:55 FULL-2026-03-02_03-55
 [root@ip-172-31-82-235 mybackup]# 
 
+
+
+For doing Backup Automatically by doing Schedule 
+======================================================
+
+go to manage jenkins ---------> select system----> navigate to Thin Backup Configuration--------> select option as Backup schedule for full backups: * * * * *------>
+----->(for giving all 5 stars it will do schedule backup for every minute)
