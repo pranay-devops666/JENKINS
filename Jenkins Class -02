@@ -75,13 +75,14 @@ For automation ---------> means whenever the developer made changes ina code and
 build manual
 
 for this we will use web-hook process
+=========================================
 
-first go to github ---------> select one repo public/private---------> select settings ---------> select developer settings------> select webhooks--------> add 
-webhook---------> payload url: https:publicIp of ec2-instance:8080/github-webhook/(jenkins url)--------> content type: application/json--------> add
+first go to github ---------> select one repo public/private rpo ---------> select settings ---------> select developer settings------> select webhooks--------> add 
+webhook---------> payload url: http://publicIp of ec2-instance:8080/github-webhook/(jenkins url)--------> content type: application/json--------> add webhook --------> tick symbol will come
 
 open created job-------> do configure------> select triggers----------> GitHub hook trigger for GITScm polling----------> save
 
-now when the developer made changes into a code automatically changes will may apply to application as well
+now when the developer made changes into a code changes automatically will may apply to application as well.
 
 select created Job ------------> do configure------> select trigger-----> select & enable GitHub hook trigger for GITHUB
 
