@@ -136,7 +136,7 @@ go to job-2 -----------> select option as build after other projects are build--
 go to job-3 -----------> select option as build after other projects are build--------->give here as job-2(called as up stram job of job-2 for job-3)
 go to job-4 -----------> select option as build after other projects are build--------->give here as job-3(called as up stram job of job-3 for job-4)
 
-successfully jobs done one sftr one after doing build the job-1 manually
+successfully jobs done one after one after doing build the job-1 manually
 
 
 
