@@ -238,3 +238,6 @@ If we forgot jenkins login Password How to get it is
 
 go to this path -----------> cd /var/lib/jenkins/-----------------> open this file as vim config.xml -----------------------------> here make changes as true to 
 false in line no:7 -----------------------------> then restart jenkins dashboard ------------> the credentials won't ask it
+
+next step is go to manage jenkins ----------------> select security ---------------> security Realm: jenkins own user database --------------> Authorization: Logged-
+-in users can do anything -----------> Tick Allow anonymous read access ------------------> save 
