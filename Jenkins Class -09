@@ -231,3 +231,10 @@ Now here we created user only
 go to manage jenkins--------> select security option--------> select Authorization:Project-based Matrix Authorization Strategy------> select Ad user: Jai ----->
 give all permissions as Admin------> add another user : give read only access
 
+
+If we forgot jenkins login Password How to get it is 
+==========================================================
+
+
+go to this path -----------> cd /var/lib/jenkins/-----------------> open this file as vim config.xml -----------------------------> here make changes as true to 
+false in line no:7 -----------------------------> then restart jenkins dashboard ------------> the credentials won't ask it
