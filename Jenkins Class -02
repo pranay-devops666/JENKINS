@@ -78,7 +78,8 @@ for this we will use web-hook process
 =========================================
 
 first go to github ---------> select one repo public/private rpo ---------> select settings ---------> select developer settings------> select webhooks--------> add 
-webhook---------> payload url: http://publicIp of ec2-instance:8080/github-webhook/(jenkins url)--------> content type: application/json--------> add webhook --------> tick symbol will come
+webhook---------> (http://54.221.108.129:8080/github-webhook/) payload url: http://publicIp of ec2-instance:8080/github-webhook/(jenkins url)--------> content type: application/json--------> add webhook --------> 
+tick symbol will come
 
 open created job-------> do configure------> select triggers----------> GitHub hook trigger for GITScm polling----------> save
 
