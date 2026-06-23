@@ -240,4 +240,7 @@ go to this path -----------> cd /var/lib/jenkins/-----------------> open this fi
 false in line no:7 -----------------------------> then restart jenkins dashboard ------------> the credentials won't ask it
 
 next step is go to manage jenkins ----------------> select security ---------------> security Realm: jenkins own user database --------------> Authorization: Logged-
--in users can do anything -----------> Tick Allow anonymous read access ------------------> save 
+-in users can do anything ----------->   save ---------------> restart jenkins
+
+select security -------------> security Realm: jenkins own user database --------------> Authorization: Logged-in users can do anything ----------->   
+save -----------------> select users --------------> select security --------> set password here ------------> login with password  
